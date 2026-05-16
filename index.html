@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foulon Automatisation IA — Gagnez 8 h par semaine</title>
+  <meta name="description" content="Automatisation IA pour cabinets comptables et artisans. Devis, factures et relances automatiques. Résultats dès la première semaine.">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #1B3A6B;
+      --navy2:   #0f2548;
+      --blue:    #2D5F9E;
+      --accent:  #3B82F6;
+      --sky:     #EAF3FF;
+      --white:   #ffffff;
+      --gray:    #64748b;
+      --light:   #f8fafc;
+      --border:  #e2e8f0;
+      --green:   #16a34a;
+      --gold:    #f59e0b;
+      --radius:  12px;
+      --shadow:  0 4px 24px rgba(27,58,107,.10);
+      --shadow2: 0 8px 40px rgba(27,58,107,.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1e293b;
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(27,58,107,.97);
+      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+    .nav-brand {
+      color: var(--white);
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.3px;
+      text-decoration: none;
+    }
+    .nav-brand span { color: #93c5fd; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,.8); text-decoration: none;
+      font-size: .9rem; transition: color .2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--accent); color: #fff !important;
+      padding: 8px 18px; border-radius: 6px; font-weight: 600;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: #2563eb; transform: translateY(-1px); }
+
+    /* ── Hero ────────────────────────────────────────────────────────────── */
+    #hero {
+      background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 50%, var(--blue) 100%);
+      color: var(--white);
+      padding: 100px 5% 90px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(59,130,246,.25);
+      border: 1px solid rgba(59,130,246,.4);
+      color: #93c5fd;
+      font-size: .8rem; font-weight: 600; letter-spacing: .5px;
+      padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 24px; text-transform: uppercase;
+    }
+    #hero h1 {
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800; line-height: 1.15;
+      margin-bottom: 20px; letter-spacing: -.5px;
+      max-width: 820px; margin-left: auto; margin-right: auto;
+    }
+    #hero h1 em { color: #93c5fd; font-style: normal; }
+    #hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,.8);
+      max-width: 580px; margin: 0 auto 36px;
+    }
+    .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      padding: 15px 30px; border-radius: 8px;
+      font-size: 1rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 16px rgba(59,130,246,.4);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,.5); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1); color: #fff;
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 15px 28px; border-radius: 8px;
+      font-size: 1rem; font-weight: 600; text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+    .hero-trust {
+      margin-top: 52px;
+      display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 16px 24px; border-radius: var(--radius);
+    }
+    .hero-stat strong { display: block; font-size: 1.8rem; font-weight: 800; color: #93c5fd; }
+    .hero-stat span { font-size: .85rem; color: rgba(255,255,255,.7); }
+
+    /* ── Sections communes ───────────────────────────────────────────────── */
+    section { padding: 80px 5%; }
+    .section-tag {
+      display: inline-block;
+      background: var(--sky); color: var(--blue);
+      font-size: .78rem; font-weight: 700; letter-spacing: .5px;
+      padding: 5px 13px; border-radius: 20px; text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+      font-weight: 800; color: var(--navy);
+      letter-spacing: -.4px; line-height: 1.2;
+    }
+    .section-sub {
+      color: var(--gray); font-size: 1.05rem;
+      margin-top: 10px; max-width: 560px;
+    }
+    .section-header { margin-bottom: 52px; }
+
+    /* ── Automatise ──────────────────────────────────────────────────────── */
+    #automatise { background: var(--light); }
+    .auto-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .auto-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .auto-card:hover { transform: translateY(-4px); box-shadow: var(--shadow2); }
+    .auto-card-head {
+      padding: 28px 28px 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .auto-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .auto-icon.blue { background: var(--sky); }
+    .auto-icon.green { background: #dcfce7; }
+    .auto-card-head h3 { font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+    .auto-card-head p { font-size: .9rem; color: var(--gray); margin-top: 2px; }
+    .auto-items { padding: 0 28px 28px; }
+    .auto-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 11px 0;
+      border-top: 1px solid var(--border);
+    }
+    .auto-item:first-child { border-top: none; }
+    .auto-check {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .auto-check.blue { background: var(--sky); color: var(--blue); }
+    .auto-check.green { background: #dcfce7; color: var(--green); }
+    .auto-item strong { display: block; font-size: .95rem; color: #1e293b; }
+    .auto-item span { font-size: .85rem; color: var(--gray); }
+
+    /* ── Comment ça marche ───────────────────────────────────────────────── */
+    #comment { background: var(--white); }
+    .steps { display: flex; gap: 0; max-width: 900px; margin: 0 auto; position: relative; }
+    .steps::before {
+      content: '';
+      position: absolute; top: 32px; left: calc(33.33% - 1px);
+      width: calc(66.66%); height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--blue));
+    }
+    .step { flex: 1; text-align: center; padding: 0 20px; position: relative; }
+    .step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--navy); color: #fff;
+      font-size: 1.3rem; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(27,58,107,.3);
+      position: relative; z-index: 1;
+    }
+    .step h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .step p { font-size: .9rem; color: var(--gray); }
+
+    /* ── Résultats ───────────────────────────────────────────────────────── */
+    #resultats {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: #fff;
+    }
+    #resultats h2 { color: #fff; }
+    #resultats .section-sub { color: rgba(255,255,255,.75); max-width: 560px; }
+    .results-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .result-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius); padding: 28px 20px;
+      text-align: center;
+      transition: background .2s, transform .2s;
+    }
+    .result-card:hover { background: rgba(255,255,255,.13); transform: translateY(-3px); }
+    .result-num {
+      font-size: 2.4rem; font-weight: 900;
+      color: #93c5fd; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .result-label { font-size: .9rem; color: rgba(255,255,255,.8); line-height: 1.4; }
+    .result-sub { font-size: .78rem; color: rgba(255,255,255,.5); margin-top: 4px; }
+
+    /* ── Tarifs ──────────────────────────────────────────────────────────── */
+    #tarifs { background: var(--light); }
+    .pricing-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+      max-width: 1080px; margin: 0 auto;
+      align-items: start;
+    }
+    .pricing-col {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .pricing-col-head {
+      padding: 24px 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .pricing-col-head.blue { background: var(--navy); }
+    .pricing-col-head.green { background: #155e3a; }
+    .pricing-col-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .pricing-col-head h3 { color: #fff; font-size: 1.1rem; font-weight: 700; }
+    .pricing-col-head p { color: rgba(255,255,255,.7); font-size: .85rem; margin-top: 2px; }
+    .pricing-tiers { padding: 0 28px; }
+    .pricing-tier {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-tier:last-child { border-bottom: none; }
+    .tier-name { font-weight: 700; font-size: .95rem; color: var(--navy); }
+    .tier-desc { font-size: .82rem; color: var(--gray); margin-top: 2px; }
+    .tier-price { text-align: right; white-space: nowrap; }
+    .tier-setup { font-size: 1.05rem; font-weight: 800; color: var(--navy); }
+    .tier-monthly { font-size: .82rem; color: var(--gray); margin-top: 2px; }
+    .pricing-options {
+      background: var(--light);
+      padding: 18px 28px; margin: 0;
+      border-top: 2px solid var(--border);
+    }
+    .pricing-options-title {
+      font-size: .78rem; font-weight: 700; color: var(--gray);
+      text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: 10px;
+    }
+    .pricing-option {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid var(--border);
+      font-size: .87rem;
+    }
+    .pricing-option:first-of-type { border-top: none; }
+    .option-name { color: #334155; }
+    .option-price { font-weight: 700; color: var(--navy); white-space: nowrap; margin-left: 12px; }
+    .pricing-cta-wrap { padding: 20px 28px 24px; }
+    .pricing-cta {
+      display: block; text-align: center;
+      padding: 12px; border-radius: 8px;
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .pricing-cta.blue-btn {
+      background: var(--navy); color: #fff;
+      box-shadow: 0 4px 12px rgba(27,58,107,.25);
+    }
+    .pricing-cta.blue-btn:hover { background: var(--navy2); transform: translateY(-1px); }
+    .pricing-cta.green-btn {
+      background: #155e3a; color: #fff;
+      box-shadow: 0 4px 12px rgba(21,94,58,.25);
+    }
+    .pricing-cta.green-btn:hover { background: #0f4529; transform: translateY(-1px); }
+    .pricing-launch {
+      text-align: center; margin-top: 28px;
+      background: #fffbeb; border: 1px solid #fcd34d;
+      border-radius: 8px; padding: 14px 20px;
+      font-size: .9rem; color: #92400e;
+      max-width: 1080px; margin-left: auto; margin-right: auto;
+    }
+    .pricing-launch strong { color: #78350f; }
+
+    /* ── Secteurs ────────────────────────────────────────────────────────── */
+    #secteurs { background: var(--white); }
+    .secteurs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .secteur-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
+      text-align: center;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .secteur-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    .secteur-icon {
+      font-size: 2.4rem; margin-bottom: 14px; display: block;
+    }
+    .secteur-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .secteur-card p { font-size: .87rem; color: var(--gray); line-height: 1.5; }
+
+    /* ── Contact ─────────────────────────────────────────────────────────── */
+    #contact {
+      background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%);
+      color: #fff; text-align: center;
+    }
+    #contact h2 { color: #fff; }
+    #contact .section-sub { color: rgba(255,255,255,.75); margin: 0 auto; }
+    .contact-card {
+      max-width: 520px; margin: 40px auto 0;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px; padding: 40px;
+    }
+    .contact-info {
+      display: flex; flex-direction: column; gap: 14px;
+      margin-bottom: 32px;
+    }
+    .contact-line {
+      display: flex; align-items: center; gap: 12px;
+      font-size: .95rem; color: rgba(255,255,255,.85);
+    }
+    .contact-line strong { color: #fff; }
+    .contact-line a { color: #93c5fd; text-decoration: none; }
+    .contact-line a:hover { text-decoration: underline; }
+    .btn-calendly {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--accent); color: #fff;
+      padding: 16px 36px; border-radius: 8px;
+      font-size: 1.05rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(59,130,246,.45);
+      transition: background .2s, transform .15s;
+      width: 100%; margin-bottom: 12px;
+    }
+    .btn-calendly:hover { background: #2563eb; transform: translateY(-2px); }
+    .btn-email {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: rgba(255,255,255,.1); color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      padding: 13px 36px; border-radius: 8px;
+      font-size: .95rem; font-weight: 600; text-decoration: none;
+      transition: background .2s, transform .15s;
+      width: 100%;
+    }
+    .btn-email:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
+    .contact-reassurance {
+      margin-top: 16px; font-size: .82rem; color: rgba(255,255,255,.5);
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy2); color: rgba(255,255,255,.5);
+      text-align: center; padding: 24px 5%;
+      font-size: .83rem;
+    }
+    footer a { color: rgba(255,255,255,.6); text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .auto-grid      { grid-template-columns: 1fr; }
+      .results-grid   { grid-template-columns: 1fr 1fr; }
+      .pricing-cols   { grid-template-columns: 1fr; max-width: 520px; }
+      .secteurs-grid  { grid-template-columns: 1fr 1fr; }
+      .steps          { flex-direction: column; gap: 32px; }
+      .steps::before  { display: none; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+      section { padding: 60px 4%; }
+      #hero { padding: 72px 4% 64px; }
+      .hero-trust { gap: 14px; }
+      .results-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .result-num { font-size: 1.8rem; }
+      .secteurs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-brand" href="#">Foulon <span>Automatisation IA</span></a>
+  <div class="nav-links">
+    <a href="#automatise">Services</a>
+    <a href="#comment">Comment</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#secteurs">Secteurs</a>
+    <a href="#contact" class="nav-cta">Démo gratuite</a>
+  </div>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-badge">⚡ Automatisation IA pour artisans &amp; comptables</div>
+  <h1>Arrêtez de perdre <em>8 heures par semaine</em> en paperasse.</h1>
+  <p>Devis, factures et relances clients en automatique — pour que vous puissiez vous concentrer sur votre métier.</p>
+  <div class="hero-ctas">
+    <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="btn-primary">
+      📅 Réserver une démo gratuite (15 min)
+    </a>
+    <a href="#automatise" class="btn-secondary">Voir ce que j'automatise →</a>
+  </div>
+  <div class="hero-trust">
+    <div class="hero-stat">
+      <strong>8 h</strong>
+      <span>économisées par semaine</span>
+    </div>
+    <div class="hero-stat">
+      <strong>2 min</strong>
+      <span>pour créer un devis</span>
+    </div>
+    <div class="hero-stat">
+      <strong>&lt; 4 sem.</strong>
+      <span>pour rentabiliser</span>
+    </div>
+    <div class="hero-stat">
+      <strong>0 €</strong>
+      <span>d'engagement</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Ce que j'automatise ────────────────────────────────────────────────── -->
+<section id="automatise">
+  <div class="section-header">
+    <div class="section-tag">Services</div>
+    <h2>Ce que j'automatise pour vous</h2>
+    <p class="section-sub">Des solutions concrètes, adaptées à votre secteur — pas de jargon, des résultats.</p>
+  </div>
+  <div class="auto-grid">
+
+    <div class="auto-card">
+      <div class="auto-card-head">
+        <div class="auto-icon blue">🏢</div>
+        <div>
+          <h3>Cabinets comptables</h3>
+          <p>Conformité 2026 + gain de temps quotidien</p>
+        </div>
+      </div>
+      <div class="auto-items">
+        <div class="auto-item">
+          <div class="auto-check blue">✓</div>
+          <div>
+            <strong>Facturation électronique 2026</strong>
+            <span>Mise en conformité avant l'obligation légale, sans stress</span>
+          </div>
+        </div>
+        <div class="auto-item">
+          <div class="auto-check blue">✓</div>
+          <div>
+            <strong>Devis et lettres de mission automatiques</strong>
+            <span>Générés en 2 minutes, personnalisés par client</span>
+          </div>
+        </div>
+        <div class="auto-item">
+          <div class="auto-check blue">✓</div>
+          <div>
+            <strong>Relances clients automatisées</strong>
+            <span>Pièces manquantes, échéances, impayés — sans intervention manuelle</span>
+          </div>
+        </div>
+        <div class="auto-item">
+          <div class="auto-check blue">✓</div>
+          <div>
+            <strong>Suivi de portefeuille clients</strong>
+            <span>Alertes automatiques sur les dossiers qui nécessitent votre attention</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auto-card">
+      <div class="auto-card-head">
+        <div class="auto-icon green">🔧</div>
+        <div>
+          <h3>Plombiers &amp; Électriciens</h3>
+          <p>Zéro paperasse, zéro chantier raté</p>
+        </div>
+      </div>
+      <div class="auto-items">
+        <div class="auto-item">
+          <div class="auto-check green">✓</div>
+          <div>
+            <strong>Devis en 2 minutes depuis le chantier</strong>
+            <span>Depuis votre téléphone, sur place — sans attendre le soir</span>
+          </div>
+        </div>
+        <div class="auto-item">
+          <div class="auto-check green">✓</div>
+          <div>
+            <strong>Factures envoyées automatiquement</strong>
+            <span>Dès que le devis est accepté, la facture part sans que vous touchiez à rien</span>
+          </div>
+        </div>
+        <div class="auto-item">
+          <div class="auto-check green">✓</div>
+          <div>
+            <strong>Relances clients sous 48 h</strong>
+            <span>Pas de réponse ? Le client est relancé automatiquement — vous n'y pensez plus</span>
+          </div>
+        </div>
+        <div class="auto-item">
+          <div class="auto-check green">✓</div>
+          <div>
+            <strong>Suivi des contrats de maintenance</strong>
+            <span>Rappels automatiques pour chaudières, VMC, contrats annuels</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Comment ça marche ──────────────────────────────────────────────────── -->
+<section id="comment">
+  <div class="section-header" style="text-align:center">
+    <div class="section-tag">Processus</div>
+    <h2>Opérationnel en 3 étapes</h2>
+    <p class="section-sub" style="margin:10px auto 0">Pas de formation compliquée. Pas d'intégration qui dure 6 mois.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Audit de 15 minutes</h3>
+      <p>On identifie ensemble les tâches qui vous font perdre le plus de temps. Sans engagement.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Mise en place personnalisée</h3>
+      <p>Je configure tout selon vos processus actuels. Vous n'avez rien à changer à vos habitudes.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Résultats dès la 1ère semaine</h3>
+      <p>Les premières heures économisées apparaissent immédiatement. Le retour sur investissement est visible en moins d'un mois.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Résultats concrets ─────────────────────────────────────────────────── -->
+<section id="resultats">
+  <div class="section-header" style="text-align:center">
+    <div class="section-tag" style="background:rgba(255,255,255,.15);color:#93c5fd">Résultats</div>
+    <h2>Des chiffres concrets, pas des promesses</h2>
+    <p class="section-sub" style="margin:10px auto 0">Ce que mes clients constatent en moyenne après un mois.</p>
+  </div>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-num">5–8 h</div>
+      <div class="result-label">économisées<br>par semaine</div>
+      <div class="result-sub">sur les tâches administratives</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">2 min</div>
+      <div class="result-label">pour créer<br>un devis complet</div>
+      <div class="result-sub">au lieu de 20 à 30 min</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">0</div>
+      <div class="result-label">facture ou relance<br>oubliée</div>
+      <div class="result-sub">tout est automatique</div>
+    </div>
+    <div class="result-card">
+      <div class="result-num">&lt; 4 sem.</div>
+      <div class="result-label">pour rentabiliser<br>l'abonnement</div>
+      <div class="result-sub">retour sur investissement garanti le premier mois</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Tarifs ──────────────────────────────────────────────────────────────── -->
+<section id="tarifs">
+  <div class="section-header" style="text-align:center">
+    <div class="section-tag">Tarifs</div>
+    <h2>Transparent. Sans surprise.</h2>
+    <p class="section-sub" style="margin:10px auto 0">Un forfait de mise en place unique + un abonnement mensuel. Pas de frais cachés.</p>
+  </div>
+
+  <div class="pricing-cols">
+
+    <!-- Comptables -->
+    <div class="pricing-col">
+      <div class="pricing-col-head blue">
+        <div class="pricing-col-icon">🏢</div>
+        <div>
+          <h3>Cabinets comptables</h3>
+          <p>Mise en conformité 2026 + automatisation admin</p>
+        </div>
+      </div>
+      <div class="pricing-tiers">
+        <div class="pricing-tier">
+          <div>
+            <div class="tier-name">Pilote</div>
+            <div class="tier-desc">Démarrage rapide, fonctions essentielles</div>
+          </div>
+          <div class="tier-price">
+            <div class="tier-setup">400 €</div>
+            <div class="tier-monthly">+ 100 €/mois</div>
+          </div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="tier-name">Essentielle</div>
+            <div class="tier-desc">Automatisation complète du cabinet</div>
+          </div>
+          <div class="tier-price">
+            <div class="tier-setup">800 €</div>
+            <div class="tier-monthly">+ 200 €/mois</div>
+          </div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="tier-name">Avancée</div>
+            <div class="tier-desc">Intégrations sur mesure + reporting</div>
+          </div>
+          <div class="tier-price">
+            <div class="tier-setup">1 500 €</div>
+            <div class="tier-monthly">+ 300 €/mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-options">
+        <div class="pricing-options-title">Options disponibles</div>
+        <div class="pricing-option">
+          <span class="option-name">💬 Agent WhatsApp (réponses automatiques clients)</span>
+          <span class="option-price">+300 € + 100 €/mois</span>
+        </div>
+        <div class="pricing-option">
+          <span class="option-name">🔔 Alertes renouvellement (missions, contrats)</span>
+          <span class="option-price">+150 € + 50 €/mois</span>
+        </div>
+      </div>
+      <div class="pricing-cta-wrap">
+        <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="pricing-cta blue-btn">
+          Réserver un audit gratuit →
+        </a>
+      </div>
+    </div>
+
+    <!-- Artisans -->
+    <div class="pricing-col">
+      <div class="pricing-col-head green">
+        <div class="pricing-col-icon">🔧</div>
+        <div>
+          <h3>Artisans — Plombiers &amp; Électriciens</h3>
+          <p>Devis, facturation et relances automatiques</p>
+        </div>
+      </div>
+      <div class="pricing-tiers">
+        <div class="pricing-tier">
+          <div>
+            <div class="tier-name">Pilote</div>
+            <div class="tier-desc">Démarrage rapide, fonctions essentielles</div>
+          </div>
+          <div class="tier-price">
+            <div class="tier-setup">300 €</div>
+            <div class="tier-monthly">+ 100 €/mois</div>
+          </div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="tier-name">Essentiel</div>
+            <div class="tier-desc">Automatisation complète de l'activité</div>
+          </div>
+          <div class="tier-price">
+            <div class="tier-setup">500 €</div>
+            <div class="tier-monthly">+ 150 €/mois</div>
+          </div>
+        </div>
+        <div class="pricing-tier">
+          <div>
+            <div class="tier-name">Pro</div>
+            <div class="tier-desc">Intégrations avancées + gestion d'équipe</div>
+          </div>
+          <div class="tier-price">
+            <div class="tier-setup">800 €</div>
+            <div class="tier-monthly">+ 200 €/mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="pricing-options">
+        <div class="pricing-options-title">Options disponibles</div>
+        <div class="pricing-option">
+          <span class="option-name">💬 Agent WhatsApp (réponses automatiques clients)</span>
+          <span class="option-price">+200 € + 80 €/mois</span>
+        </div>
+        <div class="pricing-option">
+          <span class="option-name">🔔 Alertes renouvellement contrats de maintenance</span>
+          <span class="option-price">+100 € + 40 €/mois</span>
+        </div>
+      </div>
+      <div class="pricing-cta-wrap">
+        <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="pricing-cta green-btn">
+          Réserver un audit gratuit →
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pricing-launch" style="margin-top:28px">
+    🎯 <strong>Offre de lancement disponible</strong> — tarifs réduits pour les premiers clients. <a href="mailto:foulon.automatisationia@gmail.com" style="color:#92400e;font-weight:700">Contactez-moi</a> pour en bénéficier.
+  </div>
+</section>
+
+<!-- ── Secteurs ────────────────────────────────────────────────────────────── -->
+<section id="secteurs">
+  <div class="section-header" style="text-align:center">
+    <div class="section-tag">Secteurs</div>
+    <h2>Les secteurs que je couvre</h2>
+    <p class="section-sub" style="margin:10px auto 0">Des solutions pensées pour chaque métier, pas des outils génériques.</p>
+  </div>
+  <div class="secteurs-grid">
+    <div class="secteur-card">
+      <span class="secteur-icon">📊</span>
+      <h3>Cabinets comptables</h3>
+      <p>Experts-comptables et collaborateurs : lettres de mission, relances pièces manquantes, facturation électronique 2026.</p>
+    </div>
+    <div class="secteur-card">
+      <span class="secteur-icon">🚿</span>
+      <h3>Plombiers &amp; Chauffagistes</h3>
+      <p>Devis chantier depuis le téléphone, facturation automatique, relances et suivi des contrats d'entretien chaudière et VMC.</p>
+    </div>
+    <div class="secteur-card">
+      <span class="secteur-icon">⚡</span>
+      <h3>Électriciens</h3>
+      <p>Devis en déplacement, factures envoyées à l'acceptation, relances clients et alertes de renouvellement de contrats.</p>
+    </div>
+    <div class="secteur-card">
+      <span class="secteur-icon">🏗️</span>
+      <h3>Autres artisans du bâtiment</h3>
+      <p>Peintres, menuisiers, carreleurs : même logique d'automatisation adaptée à votre activité. Demandez un audit.</p>
+    </div>
+    <div class="secteur-card">
+      <span class="secteur-icon">🏢</span>
+      <h3>TPE &amp; Indépendants</h3>
+      <p>Tout professionnel qui perd du temps en administratif peut bénéficier d'une automatisation sur mesure.</p>
+    </div>
+    <div class="secteur-card">
+      <span class="secteur-icon">🤝</span>
+      <h3>Votre secteur ?</h3>
+      <p>Si votre activité génère des devis, des factures ou des relances récurrentes, je peux vous faire gagner du temps.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ────────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section-tag" style="background:rgba(255,255,255,.12);color:#93c5fd">Contact</div>
+  <h2 style="margin-top:12px">Prêt à gagner 8 h par semaine ?</h2>
+  <p class="section-sub" style="margin:12px auto 0">
+    Un appel de 15 minutes suffit pour savoir si je peux vous aider. Aucune obligation, aucun engagement.
+  </p>
+  <div class="contact-card">
+    <div class="contact-info">
+      <div class="contact-line">
+        <span>📧</span>
+        <div><strong>Email :</strong> <a href="mailto:foulon.automatisationia@gmail.com">foulon.automatisationia@gmail.com</a></div>
+      </div>
+      <div class="contact-line">
+        <span>📍</span>
+        <div><strong>Zone :</strong> Hauts-de-France &amp; toute la France (à distance)</div>
+      </div>
+    </div>
+    <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="btn-calendly">
+      📅 Réserver un créneau de 15 minutes — c'est gratuit
+    </a>
+    <a href="mailto:foulon.automatisationia@gmail.com" class="btn-email">
+      ✉️ Envoyer un email
+    </a>
+    <p class="contact-reassurance">Sans engagement · Réponse sous 24 h · Retour sur investissement garanti le premier mois</p>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 Foulon Automatisation IA &nbsp;·&nbsp;
+     <a href="mailto:foulon.automatisationia@gmail.com">foulon.automatisationia@gmail.com</a>
+  </p>
+</footer>
+
+</body>
+</html>
