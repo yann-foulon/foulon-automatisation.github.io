@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Foulon Automatisation IA</title>
+  <meta name="description" content="Conseils pratiques sur l'automatisation pour cabinets comptables et artisans. Gagnez du temps dès aujourd'hui.">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1G6KQTWQFR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1G6KQTWQFR');
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1B3A6B;
+      --navy2:  #0f2548;
+      --blue:   #2D5F9E;
+      --accent: #3B82F6;
+      --sky:    #EAF3FF;
+      --white:  #ffffff;
+      --gray:   #64748b;
+      --light:  #f8fafc;
+      --border: #e2e8f0;
+      --green:  #16a34a;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(27,58,107,.10);
+      --shadow2: 0 8px 40px rgba(27,58,107,.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1e293b;
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(27,58,107,.97);
+      backdrop-filter: blur(8px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+    .nav-brand {
+      color: var(--white);
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.3px;
+      text-decoration: none;
+    }
+    .nav-brand span { color: #93c5fd; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,.8); text-decoration: none;
+      font-size: .9rem; transition: color .2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a.active { color: #fff; font-weight: 600; }
+    .nav-cta {
+      background: var(--accent); color: #fff !important;
+      padding: 8px 18px; border-radius: 6px; font-weight: 600;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: #2563eb; transform: translateY(-1px); }
+
+    /* ── Hero blog ───────────────────────────────────────────────────────── */
+    .blog-hero {
+      background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 60%, var(--blue) 100%);
+      color: var(--white);
+      padding: 72px 5% 64px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+    .blog-tag {
+      display: inline-block;
+      background: rgba(59,130,246,.25);
+      border: 1px solid rgba(59,130,246,.4);
+      color: #93c5fd;
+      font-size: .78rem; font-weight: 600; letter-spacing: .5px;
+      padding: 5px 14px; border-radius: 20px;
+      margin-bottom: 18px; text-transform: uppercase;
+      position: relative;
+    }
+    .blog-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; line-height: 1.2;
+      margin-bottom: 14px; letter-spacing: -.4px;
+      position: relative;
+    }
+    .blog-hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,.75);
+      max-width: 520px; margin: 0 auto;
+      position: relative;
+    }
+
+    /* ── Articles ────────────────────────────────────────────────────────── */
+    .blog-main {
+      max-width: 1100px; margin: 0 auto;
+      padding: 72px 5%;
+    }
+
+    .article {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 40px;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .article:hover {
+      box-shadow: var(--shadow2);
+      transform: translateY(-3px);
+    }
+
+    .article-aside {
+      background: var(--navy);
+      padding: 40px 32px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    .article-aside::after {
+      content: '';
+      position: absolute; bottom: -30px; right: -30px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+    .article-number {
+      font-size: 4rem; font-weight: 900;
+      color: rgba(255,255,255,.12); line-height: 1;
+      margin-bottom: 16px;
+    }
+    .article-category {
+      display: inline-block;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #93c5fd;
+      font-size: .75rem; font-weight: 600; letter-spacing: .5px;
+      padding: 4px 12px; border-radius: 20px; text-transform: uppercase;
+      margin-bottom: 12px; align-self: flex-start;
+    }
+    .article-meta {
+      font-size: .8rem; color: rgba(255,255,255,.45);
+      margin-top: auto;
+    }
+    .article-read-time {
+      display: flex; align-items: center; gap: 6px;
+      color: rgba(255,255,255,.5); font-size: .82rem;
+      margin-top: 8px;
+    }
+
+    .article-body {
+      padding: 40px 44px;
+    }
+    .article-body h2 {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 800; color: var(--navy);
+      line-height: 1.3; margin-bottom: 20px;
+      letter-spacing: -.3px;
+    }
+    .article-body p {
+      font-size: .95rem; color: #334155;
+      line-height: 1.8; margin-bottom: 16px;
+    }
+    .article-body p:last-of-type { margin-bottom: 28px; }
+
+    .article-body strong { color: var(--navy); }
+
+    .btn-audit {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      padding: 12px 24px; border-radius: 8px;
+      font-size: .92rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 12px rgba(59,130,246,.3);
+      transition: background .2s, transform .15s;
+    }
+    .btn-audit:hover { background: #2563eb; transform: translateY(-2px); }
+
+    /* ── Bandeau CTA ─────────────────────────────────────────────────────── */
+    .cta-band {
+      background: linear-gradient(135deg, var(--navy2) 0%, var(--navy) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 5%;
+    }
+    .cta-band h2 {
+      color: #fff;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 800; margin-bottom: 12px;
+    }
+    .cta-band p {
+      color: rgba(255,255,255,.75);
+      font-size: 1rem; max-width: 480px;
+      margin: 0 auto 32px;
+    }
+    .btn-cta-large {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #fff;
+      padding: 16px 36px; border-radius: 8px;
+      font-size: 1.05rem; font-weight: 700; text-decoration: none;
+      box-shadow: 0 4px 20px rgba(59,130,246,.45);
+      transition: background .2s, transform .15s;
+    }
+    .btn-cta-large:hover { background: #2563eb; transform: translateY(-2px); }
+
+    /* ── Footer ──────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy2); color: rgba(255,255,255,.5);
+      text-align: center; padding: 24px 5%;
+      font-size: .83rem;
+    }
+    footer a { color: rgba(255,255,255,.6); text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    /* ── Responsive ──────────────────────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .article { grid-template-columns: 1fr; }
+      .article-aside {
+        flex-direction: row; align-items: center; gap: 20px;
+        padding: 24px 28px;
+      }
+      .article-number { font-size: 2.5rem; margin-bottom: 0; }
+      .article-aside::after { display: none; }
+      .article-body { padding: 28px; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 4%; }
+      .nav-links { display: none; }
+      .blog-main { padding: 48px 4%; }
+      .article-aside { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ─────────────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-brand" href="index.html">Foulon <span>Automatisation IA</span></a>
+  <div class="nav-links">
+    <a href="index.html#automatise">Services</a>
+    <a href="index.html#tarifs">Tarifs</a>
+    <a href="index.html#secteurs">Secteurs</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="index.html#contact" class="nav-cta">Démo gratuite</a>
+  </div>
+</nav>
+
+<!-- ── Hero ───────────────────────────────────────────────────────────────── -->
+<header class="blog-hero">
+  <div class="blog-tag">📝 Ressources &amp; conseils</div>
+  <h1>Le blog de l'automatisation</h1>
+  <p>Conseils pratiques pour les comptables et les artisans qui veulent reprendre le contrôle de leur temps.</p>
+</header>
+
+<!-- ── Articles ───────────────────────────────────────────────────────────── -->
+<main class="blog-main">
+
+  <!-- Article 1 -->
+  <article class="article">
+    <div class="article-aside">
+      <div class="article-number">01</div>
+      <div class="article-category">Cabinets comptables</div>
+      <div class="article-meta">
+        <div>Mai 2026</div>
+        <div class="article-read-time">⏱ 4 min de lecture</div>
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>Facturation électronique 2026 : ce que les cabinets comptables doivent savoir</h2>
+      <p>
+        À partir de 2026, la facturation électronique devient obligatoire pour toutes les entreprises assujetties à la TVA en France. Pour les cabinets comptables, cette réforme représente à la fois une contrainte et une opportunité. <strong>Contrainte</strong>, parce qu'il faut mettre en conformité des dizaines — parfois des centaines — de dossiers clients dans des délais serrés. <strong>Opportunité</strong>, parce que les cabinets qui s'y préparent dès maintenant peuvent transformer cette obligation en avantage concurrentiel et en gain de temps durable.
+      </p>
+      <p>
+        Concrètement, la réforme impose l'émission et la réception de factures au format structuré (Factur-X, UBL ou CII) via une plateforme de dématérialisation partenaire (PDP). Cela signifie que les flux papier et les PDF non structurés ne seront plus acceptés entre professionnels. Pour un cabinet comptable, cela touche directement la relation avec chaque client : il faut paramétrer un flux entrant et sortant par dossier, vérifier la conformité des données, et former les clients aux nouveaux outils. <strong>Sans automatisation, cette charge tombe entièrement sur les collaborateurs.</strong>
+      </p>
+      <p>
+        La bonne nouvelle, c'est qu'un système d'automatisation bien configuré peut prendre en charge l'essentiel de ce travail : génération automatique des factures au bon format, envoi via la PDP, accusés de réception, archivage et relances en cas d'anomalie. Plusieurs cabinets ayant mis en place ces flux avant l'échéance ont économisé plus de 6 heures par semaine dès le premier mois, tout en offrant une expérience fluide à leurs clients. La mise en place prend moins d'une semaine.
+      </p>
+      <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="btn-audit">
+        📅 Réserver un audit gratuit — 15 min
+      </a>
+    </div>
+  </article>
+
+  <!-- Article 2 -->
+  <article class="article">
+    <div class="article-aside">
+      <div class="article-number">02</div>
+      <div class="article-category">Artisans plombiers</div>
+      <div class="article-meta">
+        <div>Mai 2026</div>
+        <div class="article-read-time">⏱ 4 min de lecture</div>
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>Comment un plombier peut gagner 5 h par semaine grâce à l'automatisation</h2>
+      <p>
+        Un plombier indépendant passe en moyenne entre 6 et 10 heures par semaine sur des tâches administratives : rédiger des devis le soir après le chantier, envoyer les factures, relancer les clients qui n'ont pas répondu, suivre les contrats de maintenance annuels. Ce temps ne génère pas de revenu direct — et pourtant, il est indispensable. <strong>L'automatisation ne remplace pas le plombier, elle lui rend ces heures.</strong>
+      </p>
+      <p>
+        La première étape, la plus simple, consiste à automatiser la création de devis. Avec un outil adapté, un plombier peut générer un devis complet depuis son téléphone en deux minutes, directement sur le chantier, pendant que le client est encore là. Le devis est envoyé immédiatement par email, et si le client ne répond pas sous 48 heures, une relance automatique est envoyée en son nom. <strong>Résultat : moins de devis perdus, des décisions plus rapides, et des soirées libérées.</strong>
+      </p>
+      <p>
+        La deuxième étape, c'est la facturation automatique. Dès que le client accepte le devis, la facture correspondante est générée et envoyée sans intervention manuelle. Les contrats de maintenance — chaudières, VMC, adoucisseurs — peuvent également être suivis automatiquement : rappels avant échéance, propositions de renouvellement envoyées au bon moment. En cumulant ces automatisations, les plombiers qui ont franchi le pas constatent un gain net de 5 à 8 heures par semaine, soit plus d'une journée complète récupérée chaque mois.
+      </p>
+      <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="btn-audit">
+        📅 Réserver un audit gratuit — 15 min
+      </a>
+    </div>
+  </article>
+
+  <!-- Article 3 -->
+  <article class="article">
+    <div class="article-aside">
+      <div class="article-number">03</div>
+      <div class="article-category">Artisans &amp; indépendants</div>
+      <div class="article-meta">
+        <div>Mai 2026</div>
+        <div class="article-read-time">⏱ 5 min de lecture</div>
+      </div>
+    </div>
+    <div class="article-body">
+      <h2>Les 5 tâches administratives que les artisans peuvent automatiser dès aujourd'hui</h2>
+      <p>
+        La plupart des artisans savent qu'ils perdent du temps en administratif, mais peu réalisent à quel point les solutions existent déjà et sont accessibles. <strong>Voici les 5 tâches qui reviennent systématiquement</strong> chez les plombiers, électriciens et autres artisans, et qui peuvent être automatisées sans formation complexe ni investissement lourd. La mise en place prend entre 3 et 5 jours ouvrés.
+      </p>
+      <p>
+        <strong>1. La création de devis.</strong> Au lieu de rédiger chaque devis depuis zéro le soir à la maison, un système d'automatisation génère un document structuré en 2 minutes depuis le téléphone, sur chantier. <strong>2. L'envoi de factures.</strong> Dès qu'un devis est accepté, la facture correspondante est créée et envoyée automatiquement, sans oubli possible. <strong>3. Les relances clients.</strong> Pas de réponse sous 48 heures ? Le client reçoit une relance personnalisée en votre nom, sans que vous ayez à y penser. <strong>4. Les rappels de maintenance.</strong> Les contrats annuels (chaudières, VMC, installations électriques) sont suivis automatiquement : le client est contacté au bon moment pour planifier l'intervention. <strong>5. Le suivi des impayés.</strong> Les factures non réglées déclenchent des relances progressives et espacées, ce qui réduit les mauvaises créances sans créer de friction avec le client.
+      </p>
+      <p>
+        Ces cinq automatisations ne nécessitent aucun changement de vos habitudes de travail sur le terrain. Elles s'appuient sur vos pratiques actuelles et les rendent simplement plus fluides. Un artisan qui met en place ces cinq briques récupère en moyenne une journée et demie par mois — du temps qu'il peut consacrer à de nouveaux chantiers, à sa famille, ou simplement à souffler. <strong>L'audit initial est gratuit et dure 15 minutes.</strong> C'est suffisant pour identifier lesquelles de ces automatisations vous feraient gagner le plus de temps immédiatement.
+      </p>
+      <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="btn-audit">
+        📅 Réserver un audit gratuit — 15 min
+      </a>
+    </div>
+  </article>
+
+</main>
+
+<!-- ── Bandeau CTA ─────────────────────────────────────────────────────────── -->
+<section class="cta-band">
+  <h2>Vous vous reconnaissez dans ces situations ?</h2>
+  <p>Un audit de 15 minutes suffit pour identifier les heures que vous pouvez récupérer cette semaine.</p>
+  <a href="https://calendly.com/foulon-automatisationia/30min" target="_blank" rel="noopener" class="btn-cta-large">
+    📅 Réserver un audit gratuit — c'est sans engagement
+  </a>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────────── -->
+<footer>
+  <p>© 2026 Foulon Automatisation IA &nbsp;·&nbsp;
+     <a href="mailto:foulon.automatisationia@gmail.com">foulon.automatisationia@gmail.com</a> &nbsp;·&nbsp;
+     <a href="index.html">Retour au site</a>
+  </p>
+</footer>
+
+</body>
+</html>
