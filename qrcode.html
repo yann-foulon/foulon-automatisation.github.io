@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code — Foulon Automatisation IA</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0f2548;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 48px 52px 40px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      max-width: 440px; width: 100%;
+    }
+
+    .brand {
+      font-size: .78rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: #2D5F9E;
+      margin-bottom: 28px;
+    }
+
+    #qr-container {
+      display: inline-block;
+      padding: 16px;
+      border: 3px solid #1B3A6B;
+      border-radius: 12px;
+      background: #fff;
+      margin-bottom: 28px;
+    }
+
+    /* Force QR canvas/img size */
+    #qr-container canvas,
+    #qr-container img {
+      display: block;
+    }
+
+    .divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(to right, #1B3A6B, #3B82F6);
+      border-radius: 2px;
+      margin: 0 auto 20px;
+    }
+
+    .name {
+      font-size: 1.25rem; font-weight: 800;
+      color: #1B3A6B; letter-spacing: -.3px;
+      margin-bottom: 6px;
+    }
+
+    .url {
+      font-size: .82rem; color: #64748b;
+      margin-bottom: 6px; word-break: break-all;
+    }
+
+    .email {
+      font-size: .9rem; color: #2D5F9E;
+      font-weight: 600; margin-bottom: 32px;
+    }
+
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #1B3A6B; color: #fff;
+      padding: 13px 28px; border-radius: 8px;
+      font-size: .95rem; font-weight: 700;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+      width: 100%; justify-content: center;
+    }
+    .btn-download:hover { background: #0f2548; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="brand">Scannez pour visiter le site</div>
+
+  <div id="qr-container">
+    <div id="qr"></div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="name">Foulon Automatisation IA</div>
+  <div class="url">yann-foulon.github.io/foulon-automatisation.github.io</div>
+  <div class="email">foulon.automatisationia@gmail.com</div>
+
+  <button class="btn-download" onclick="download()">⬇ Télécharger en PNG</button>
+</div>
+
+<script>
+  const URL = "https://yann-foulon.github.io/foulon-automatisation.github.io";
+  const SIZE = 280;
+
+  new QRCode(document.getElementById("qr"), {
+    text:         URL,
+    width:        SIZE,
+    height:       SIZE,
+    colorDark:    "#1B3A6B",
+    colorLight:   "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  function download() {
+    // Wait a tick to ensure QRCode has rendered
+    setTimeout(() => {
+      const qrEl = document.getElementById("qr");
+      const canvas = qrEl.querySelector("canvas");
+      const img    = qrEl.querySelector("img");
+
+      if (canvas) {
+        exportCanvas(canvas);
+      } else if (img) {
+        // Fallback: draw img onto a new canvas
+        const c = document.createElement("canvas");
+        c.width  = SIZE + 64;
+        c.height = SIZE + 64;
+        const ctx = c.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.drawImage(img, 32, 32, SIZE, SIZE);
+        exportCanvas(c);
+      }
+    }, 100);
+  }
+
+  function exportCanvas(sourceCanvas) {
+    // Build a decorated canvas: QR + text
+    const pad    = 32;
+    const textH  = 90;
+    const w      = sourceCanvas.width  + pad * 2;
+    const h      = sourceCanvas.height + pad * 2 + textH;
+
+    const c   = document.createElement("canvas");
+    c.width   = w;
+    c.height  = h;
+    const ctx = c.getContext("2d");
+
+    // Background
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, w, h);
+
+    // Border
+    ctx.strokeStyle = "#1B3A6B";
+    ctx.lineWidth   = 6;
+    const r = 16;
+    ctx.beginPath();
+    ctx.moveTo(r, 0); ctx.lineTo(w - r, 0);
+    ctx.quadraticCurveTo(w, 0, w, r);
+    ctx.lineTo(w, h - r);
+    ctx.quadraticCurveTo(w, h, w - r, h);
+    ctx.lineTo(r, h); ctx.quadraticCurveTo(0, h, 0, h - r);
+    ctx.lineTo(0, r); ctx.quadraticCurveTo(0, 0, r, 0);
+    ctx.closePath(); ctx.stroke();
+
+    // QR code
+    ctx.drawImage(sourceCanvas, pad, pad, sourceCanvas.width, sourceCanvas.height);
+
+    // Divider line
+    const dy = pad + sourceCanvas.height + 16;
+    const grd = ctx.createLinearGradient(w * .35, 0, w * .65, 0);
+    grd.addColorStop(0, "#1B3A6B");
+    grd.addColorStop(1, "#3B82F6");
+    ctx.fillStyle = grd;
+    ctx.fillRect(w * .35, dy, w * .3, 3);
+
+    // Name
+    ctx.fillStyle   = "#1B3A6B";
+    ctx.font        = "bold 22px 'Segoe UI', sans-serif";
+    ctx.textAlign   = "center";
+    ctx.fillText("Foulon Automatisation IA", w / 2, dy + 30);
+
+    // Email
+    ctx.fillStyle = "#2D5F9E";
+    ctx.font      = "600 15px 'Segoe UI', sans-serif";
+    ctx.fillText("foulon.automatisationia@gmail.com", w / 2, dy + 56);
+
+    // Download
+    const a  = document.createElement("a");
+    a.href   = c.toDataURL("image/png");
+    a.download = "qrcode-foulon-automatisation-ia.png";
+    a.click();
+  }
+</script>
+
+</body>
+</html>
